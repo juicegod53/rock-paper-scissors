@@ -18,12 +18,13 @@ let humanScore = 0;
 let computerScore = 0;
 
 function playGame() {
-    function playRound(humanChoice, computerChoice) {
-        humanChoice = humanChoice.toLowerCase()
+    function playRound(e) {
+        let humanChoice = e.target.innerText
+        let computerChoice = getComputerChoice()
         let win = false
         let winners = [["paper", "rock"],["rock", "scissors"], ["scissors", "paper"]]
         if (humanChoice == computerChoice) {
-            console.log("Tie! Both played "+humanChoice)
+            results.innerText = "Tie! Both played "+humanChoice
         } else {
             for (let i = 0; i < winners.length; i++) {
                 if (winners[i][0] == humanChoice && winners[i][1] == computerChoice) {
@@ -31,35 +32,38 @@ function playGame() {
                 }
             }
             if (win == true) {
-                console.log("You win! "+humanChoice+" beats "+computerChoice)
+                results.innerText = "You win! "+humanChoice+" beats "+computerChoice
                 humanScore = humanScore + 1
             } else {
-                console.log("You lose! "+computerChoice+" beats "+humanChoice)
+                results.innerText = "You lose! "+computerChoice+" beats "+humanChoice
                 computerScore = computerScore + 1
             }
             
         }
+        if (humanScore != 5 && computerScore != 5) {
+            score.innerText = "Human Score: " +humanScore
+            score.innerText += ", Computer Score: "+computerScore
+        }
+        if (humanScore == 5) {
+            results.innerText = "You win!"
+            humanScore = 0
+            computerScore = 0
+        } else if (computerScore == 5) {
+            results.innerText = "Computer wins!"
+            humanScore = 0
+            computerScore = 0
+        }
     }
-    const computerSelection = getComputerChoice();
+
+    let results = document.querySelector("#results")
+    let score = document.querySelector("#score")
 
     let rockButton = document.querySelector("#rock")
-    rockButton.addEventListener("click", playRound("rock", computerSelection))
+    rockButton.addEventListener("click", playRound)
     let paperButton = document.querySelector("#paper")
-    paperButton.addEventListener("click", playRound("paper", computerSelection))
+    paperButton.addEventListener("click", playRound)
     let scissorsButton = document.querySelector("#scissors")
-    scissorsButton.addEventListener("click", playRound("scissors"), computerSelection)
-    // while (humanScore != 5 && computerScore != 5) {
-    //     const humanSelection = getHumanChoice();
-    //     const computerSelection = getComputerChoice();
-    //     playRound(humanSelection, computerSelection)
-    //     console.log("Your Score: "+humanScore)
-    //     console.log("Computer Score: "+computerScore)
-    // }
-    // if (humanScore == 5) {
-    //     console.log("You win!")
-    // } else if (computerScore == 5) {
-    //     console.log("Computer wins!")
-    // }
+    scissorsButton.addEventListener("click", playRound)
 }
 
 playGame()
