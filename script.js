@@ -40,18 +40,26 @@ function playGame() {
             
         }
     }
-    while (humanScore != 5 && computerScore != 5) {
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection)
-        console.log("Your Score: "+humanScore)
-        console.log("Computer Score: "+computerScore)
-    }
-    if (humanScore == 5) {
-        console.log("You win!")
-    } else if (computerScore == 5) {
-        console.log("Computer wins!")
-    }
+    const computerSelection = getComputerChoice();
+
+    let rockButton = document.querySelector("#rock")
+    rockButton.addEventListener("click", playRound("rock", computerSelection))
+    let paperButton = document.querySelector("#paper")
+    paperButton.addEventListener("click", playRound("paper", computerSelection))
+    let scissorsButton = document.querySelector("#scissors")
+    scissorsButton.addEventListener("click", playRound("scissors"), computerSelection)
+    // while (humanScore != 5 && computerScore != 5) {
+    //     const humanSelection = getHumanChoice();
+    //     const computerSelection = getComputerChoice();
+    //     playRound(humanSelection, computerSelection)
+    //     console.log("Your Score: "+humanScore)
+    //     console.log("Computer Score: "+computerScore)
+    // }
+    // if (humanScore == 5) {
+    //     console.log("You win!")
+    // } else if (computerScore == 5) {
+    //     console.log("Computer wins!")
+    // }
 }
 
 playGame()
