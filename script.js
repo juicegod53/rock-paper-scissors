@@ -1,11 +1,11 @@
 function getComputerChoice() {
     let val = Math.floor(Math.random() * 3)
     if (val == 0) {
-        return "rock"
+        return "Rock"
     } else if (val == 1) {
-        return "paper"
+        return "Paper"
     } else if (val == 2) {
-        return "scissors"
+        return "Scissors"
     }
 }
 
@@ -19,12 +19,14 @@ let computerScore = 0;
 
 function playGame() {
     function playRound(e) {
-        let humanChoice = e.target.innerText
+        final.innerText = ""
+        let humanChoice = e.target.id
         let computerChoice = getComputerChoice()
+        humanChoice = humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1)
         let win = false
-        let winners = [["paper", "rock"],["rock", "scissors"], ["scissors", "paper"]]
+        let winners = [["Paper", "Rock"],["Rock", "Scissors"], ["Scissors", "Paper"]]
         if (humanChoice == computerChoice) {
-            results.innerText = "Tie! Both played "+humanChoice
+            results.innerText = "Tie! Both played "+humanChoice + "."
         } else {
             for (let i = 0; i < winners.length; i++) {
                 if (winners[i][0] == humanChoice && winners[i][1] == computerChoice) {
@@ -32,11 +34,15 @@ function playGame() {
                 }
             }
             if (win == true) {
-                results.innerText = "You win! "+humanChoice+" beats "+computerChoice
+                results.innerText = "You win! "+humanChoice+" beats "+computerChoice + "."
                 humanScore = humanScore + 1
+                score.innerText = "Human Score: " +humanScore
+                score.innerText += ", Computer Score: "+computerScore
             } else {
-                results.innerText = "You lose! "+computerChoice+" beats "+humanChoice
+                results.innerText = "You lose! "+computerChoice+" beats "+humanChoice + "."
                 computerScore = computerScore + 1
+                score.innerText = "Human Score: " +humanScore
+                score.innerText += ", Computer Score: "+computerScore
             }
             
         }
@@ -45,11 +51,11 @@ function playGame() {
             score.innerText += ", Computer Score: "+computerScore
         }
         if (humanScore == 5) {
-            results.innerText = "You win!"
+            final.innerText = "You win!🏆"
             humanScore = 0
             computerScore = 0
         } else if (computerScore == 5) {
-            results.innerText = "Computer wins!"
+            final.innerText = "Computer wins!🖥️"
             humanScore = 0
             computerScore = 0
         }
@@ -57,6 +63,7 @@ function playGame() {
 
     let results = document.querySelector("#results")
     let score = document.querySelector("#score")
+    let final = document.querySelector("#final")
 
     let rockButton = document.querySelector("#rock")
     rockButton.addEventListener("click", playRound)
